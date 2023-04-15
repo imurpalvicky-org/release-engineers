@@ -2,7 +2,7 @@ name: new main workflow
 on: pull_request
 jobs:
   build:
-    runs-on: "ubuntu-org"
+    runs-on: [ubuntu-org,ubuntu-org4]
     strategy:
       matrix:
         node-version: [14.x]
