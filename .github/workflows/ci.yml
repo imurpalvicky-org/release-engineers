@@ -6,8 +6,6 @@ jobs:
     strategy:
       matrix:
         node-version: [14.x]
-  job1:
-    runs-on: ubuntu-org
     steps:
       - name: "checkout"
         uses: actions/checkout@v2
