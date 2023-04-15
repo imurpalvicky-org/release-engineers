@@ -39,13 +39,28 @@ jobs:
 #        id: step_two
 #        run: |
 #          echo "$test" # This will output 'yellow'
-    
-      - name: create an issue
+      - name: "Perform SOD Check"
+        run: |
+          echo "Perform SOD Check" 
+      - name: "create service now ticket"
+        run: |
+          echo "create service now ticket" 
+      - name: "create sharepoint folder"
+        run: |
+          echo "sharepoint folder creation" 
+      - name: "create an workitem for Compliance team"
         uses: dacbd/create-issue-action@main
         with:
           token: ${{ SECRETS.GIT_PER_TOKEN }}
           owner: imurpalvicky-org
           repo: compliance-team
           title: New Replease - ${{ github.event.inputs.ReleaseNo }}
-          body: New Release created verify the artifacts and approve the release 
+          body: New Release created verify the artifacts and close the issue with the comment "APPROVED"
+          assignees: imurpalvicky
+      - name: "create an workitem for App Release engineer team to kick start the release"
+        uses: dacbd/create-issue-action@main
+        with:
+          token: ${{ SECRETS.GIT_PER_TOKEN }}
+          title: New Replease - ${{ github.event.inputs.ReleaseNo }}
+          body: Please close the issue  once the ADM approval is given, with the comment "GET STARTED" 
           assignees: imurpalvicky
