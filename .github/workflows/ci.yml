@@ -1,4 +1,4 @@
-name: main workflow 
+name: new main workflow 
 on: pull_request
 jobs:
   build:
