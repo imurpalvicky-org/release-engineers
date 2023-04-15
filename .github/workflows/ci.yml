@@ -1,13 +1,11 @@
-name: main ondemand Workflow
-
-on:
-  workflow_dispatch:
-
-env:
-  WORKFLOW_VARIABLE: WORKFLOW
-
+name: main workflow 
+on: pull_request
 jobs:
-
+  build:
+    runs-on: "ubuntu-org"
+    strategy:
+      matrix:
+        node-version: [14.x]
   job1:
     runs-on: ubuntu-org
     steps:
