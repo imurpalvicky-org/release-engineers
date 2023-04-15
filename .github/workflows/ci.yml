@@ -7,7 +7,7 @@ env:
   WORKFLOW_VARIABLE: WORKFLOW
 jobs:
   build:
-    runs-on: "ubuntu"
+    runs-on: "ubuntu-org"
     strategy:
       matrix:
         node-version: [14.x]
