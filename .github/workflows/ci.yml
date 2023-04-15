@@ -1,0 +1,41 @@
+name: main ondemand Workflow
+
+on:
+  workflow_dispatch:
+
+env:
+  WORKFLOW_VARIABLE: WORKFLOW
+jobs:
+  build:
+    runs-on: "ubuntu"
+    strategy:
+      matrix:
+        node-version: [14.x]
+    steps:
+      - name: "checkout"
+        uses: actions/checkout@v2
+#      - name: Set up Node.js ${{ matrix.node-version }}
+#        uses: actions/setup-node@v2
+#        with:
+#          node-version: ${{ matrix.node-version }} 
+#      - name: Install dependencies
+#        run: npm install
+#      - name: sample curl call
+#        run: |
+#          curl https://meowfacts.herokuapp.com/ | jq '.data[0]'
+#        id: samplecurl
+#      - name: Set the value
+#        id: step_one
+#        run: |
+#          echo "test=$(curl https://meowfacts.herokuapp.com/ | jq '.data[0]' )" >> $GITHUB_ENV
+#      - name: Use the value
+#        id: step_two
+#        run: |
+#          echo "$test" # This will output 'yellow'
+    
+      - name: create an issue
+        uses: dacbd/create-issue-action@main
+        with:
+          token: ${{ SECRETS.GIT_PER_TOKEN }}
+          title: Simple test issue
+          body: my new issue         
