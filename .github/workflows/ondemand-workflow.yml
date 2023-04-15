@@ -3,6 +3,11 @@ name: ondemand main Workflow
 
 on:
   workflow_dispatch:
+   inputs:
+      ReleaseNo:
+        description: 'Enter Release name'
+        required: true
+        default: '2.5.3'
 
 env:
   WORKFLOW_VARIABLE: WORKFLOW
@@ -41,6 +46,6 @@ jobs:
           token: ${{ SECRETS.GIT_PER_TOKEN }}
           owner: imurpalvicky-org
           repo: compliance-team
-          title: New Replease - viknesh
-          body: my new issue
+          title: New Replease - ${{ github.event.inputs.ReleaseNo }}
+          body: New Release created verify the artifacts and approve the release 
           assignees: imurpalvicky
