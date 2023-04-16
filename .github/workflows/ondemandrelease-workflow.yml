@@ -54,13 +54,13 @@ jobs:
           token: ${{ SECRETS.GIT_PER_TOKEN }}
           owner: imurpalvicky-org
           repo: compliance-team
-          title: New Replease - ${{ github.event.inputs.ReleaseNo }}
+          title: New Replease -<GEAR_ID>-${{ github.event.inputs.ReleaseNo }}
           body: New Release created verify the artifacts and close the issue with the comment "APPROVED"
           assignees: imurpalvicky
       - name: "create an workitem for App Release engineer team to kick start the release"
         uses: dacbd/create-issue-action@main
         with:
           token: ${{ SECRETS.GIT_PER_TOKEN }}
-          title: New Replease - ${{ github.event.inputs.ReleaseNo }}
+          title: New Replease-<GEAR_ID>- ${{ github.event.inputs.ReleaseNo }}
           body: Please close the issue  once the ADM approval is given, with the comment "GET STARTED" 
           assignees: imurpalvicky
