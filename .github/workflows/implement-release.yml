@@ -14,5 +14,5 @@ jobs:
       env:
         GITHUB_CONTEXT: ${{toJson(github)}}
       run: |
-        echo " this is the issue action ${{ github.event.issue.action }}" 
-        echo "this is the issue lable ${{ github.event.issue.labels.*.name }}" 
+        echo " this is the issue action ${{ github.event.action }}" 
+        echo "this is the issue lable ${{ join(github.event.issue.labels.*.name,';') }}" 
