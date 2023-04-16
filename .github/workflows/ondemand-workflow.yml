@@ -1,5 +1,5 @@
 
-name: ondemand main Workflow
+name: ondemand release Workflow
 
 on:
   workflow_dispatch:
