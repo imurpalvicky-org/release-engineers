@@ -12,7 +12,7 @@ jobs:
     steps:
     - name: Dump GitHub context
       env:
-        GITHUB_CONTEXT: ${{ toJson(github)}}
+        GITHUB_CONTEXT: ${{toJson(github)}}
       run: |
         echo " this is the issue action ${{ github.event.issue.action }}" 
         echo "this is the issue lable ${{ github.event.issue.labels.*.name }}" 
