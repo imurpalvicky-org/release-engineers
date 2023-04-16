@@ -1,0 +1,16 @@
+
+name: implement release Workflow
+
+on:
+  issues:
+    types: [opened, closed, reopened]
+jobs:
+  payloadprintjob:    
+    name: Print event
+    runs-on: [ubuntu-org,ubuntu-org4]
+    steps:
+    - name: Dump GitHub context
+      env:
+        GITHUB_CONTEXT: ${{ toJson(github) }}
+      run: |
+        echo "$GITHUB_CONTEXT" 
