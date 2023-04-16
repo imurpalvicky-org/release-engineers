@@ -15,4 +15,20 @@ jobs:
         GITHUB_CONTEXT: ${{toJson(github)}}
       run: |
         echo " this is the issue action ${{ github.event.action }}" 
-        echo "this is the issue lable ${{ join(github.event.issue.labels.*.name,';') }}" 
+        echo "this is the issue lable ${{ join(github.event.issue.labels.*.name,';') }}"
+        env:
+          issuelabels: "${{ join(github.event.issue.labels.*.name,';') }}"
+    - uses: octokit/request-action@v2.x
+      id: get_adm_issue_status
+      with:
+        route: GET "/repos/imurpalvicky-org/compliance-team/issues/?labels={issuelabels}"
+        owner: octokit
+        repo: request-action
+        issuelabels: ${{env.issuelabels}}
+      env:
+        GITHUB_TOKEN: ${{ SECRETS.GIT_PER_TOKEN }}
+    - name: "Check if the ADM team approved the release"
+      if: "${{fromJson(steps.get_adm_issue.outputs.data).[0].state == 'open'}}"
+      run: |
+        echo "Release Approved by ADM team " 
+    - run: "echo latest release: '${{ steps.get_adm_issue.outputs.data }}'"
