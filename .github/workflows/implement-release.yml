@@ -27,6 +27,7 @@ jobs:
         issuelabels: ${{env.issuelabels}}
       env:
         GITHUB_TOKEN: ${{ SECRETS.GIT_PER_TOKEN }}
+        
     - name: "Check if the ADM team approved the release"
       if: "${{toJson(steps.get_adm_issue.outputs.data[0].state) == 'open'}}"
       run: |
