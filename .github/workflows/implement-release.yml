@@ -5,7 +5,7 @@ on:
   issues:
     types: [opened, closed, reopened]
 jobs:
-  preimplementation:
+  pre-implementation-job:
     if: contains(github.event.issue.labels.*.name, 'gearid-1234')
     name: Print event
     runs-on: [ubuntu-org,ubuntu-org4]
@@ -36,7 +36,11 @@ jobs:
     - name: "verify ADM Approval"
       if: "${{fromJson(steps.get_adm_issue_status.outputs.data)[0].state}} != 'closed'}}"
       run: |
-        exit 1       
-    - name: "Jenkins deployment Job"
-      run: |
-        echo "Release Approved by ADM team "
+        exit 1
+  RunDeploy-job:
+      needs: pre-implementation-job
+      runs-on: [ubuntu-org,ubuntu-org4]
+      steps:
+      - name: "Jenkins deployment Job"
+        run: |
+          echo "Run Jenkins job and wait for two hours "
