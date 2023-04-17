@@ -59,7 +59,7 @@ jobs:
             # Body
             New Release created verify the artifacts and close the issue with the comment "APPROVED"
           assignees: imurpalvicky
-          labels: CHG454 ,gearid-1234
+          labels: CHG455 ,gearid-1234
       - name: "create an workitem for App Release engineer team to kick start the release"
         uses: dacbd/create-issue-action@main
         with:
@@ -69,4 +69,4 @@ jobs:
             # Body
             Please close the issue  once the ADM approval is given, with the comment "GET STARTED" 
           assignees: imurpalvicky
-          labels: CHG454 ,gearid-1234
+          labels: CHG455 ,gearid-1234
