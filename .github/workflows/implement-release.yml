@@ -32,10 +32,11 @@ jobs:
     - name: "verify ADM Approval"
       if: "${{fromJson(steps.get_adm_issue_status.outputs.data)[0].state}} == 'closed'}}"
       run: |
-        echo "Release Approved by ADM team " 
+        echo "Release Approved by ADM team as ${{fromJson(steps.get_adm_issue_status.outputs.data)[0].state}}" 
     - name: "verify ADM Approval"
       if: "${{fromJson(steps.get_adm_issue_status.outputs.data)[0].state}} != 'closed'}}"
       run: |
+        echo "Release disapproved by ADM team as ${{fromJson(steps.get_adm_issue_status.outputs.data)[0].state}}" 
         exit 1
   RunDeploy-job:
       needs: pre-implementation-job
