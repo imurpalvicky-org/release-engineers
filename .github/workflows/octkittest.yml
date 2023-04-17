@@ -37,4 +37,4 @@ jobs:
       run: |
         echo "Release Approved by ADM team " 
     - run: "echo latest release: '${{ steps.get_adm_issue_status.outputs.data }}'"
-    - run: "echo latest release: '${{ toJson(steps.get_adm_issue.outputs.data[0]).state }}'"
+    - run: "echo latest release: '${{ (steps.get_adm_issue.outputs.data[0]) }}'"
