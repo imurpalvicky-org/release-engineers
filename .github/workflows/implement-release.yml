@@ -20,7 +20,7 @@ jobs:
         echo "this is the issue lable ${{ join(github.event.issue.labels.*.name,',') }}"
           
     - uses: octokit/request-action@v2.x
-      name: Check ADM issue status
+      name: Get ADM issue status
       id: get_adm_issue_status
       with:
         route: GET /repos/{owner}/{repo}/issues
@@ -30,11 +30,11 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ SECRETS.GIT_PER_TOKEN }}
         
-    - name: "verify ADM Approval"
+    - name: "ADM approval provided is closed?"
       if: ${{fromJson(steps.get_adm_issue_status.outputs.data)[0].state == 'closed'}} 
       run: |
         echo "Release Approved by ADM team as ${{fromJson(steps.get_adm_issue_status.outputs.data)[0].state}}" 
-    - name: "verify ADM Approval"
+    - name: "ADM approval provided is not closed?"
       if: ${{fromJson(steps.get_adm_issue_status.outputs.data)[0].state != 'closed'}}
       run: |
         echo "Release disapproved by ADM team as ${{fromJson(steps.get_adm_issue_status.outputs.data)[0].state}}" 
