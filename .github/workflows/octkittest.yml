@@ -27,7 +27,7 @@ jobs:
         route: GET /repos/{owner}/{repo}/issues
         repo: 'compliance-team'
         owner: 'imurpalvicky-org'
-        labels: "${{ env.labels }}"
+        labels: "gearid-1234,CHG454"
       env:
         GITHUB_TOKEN: ${{ SECRETS.GIT_PER_TOKEN }}
         
