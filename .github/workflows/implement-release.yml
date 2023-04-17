@@ -5,7 +5,7 @@ on:
   issues:
     types: [opened, closed, reopened]
 jobs:
-  payloadprintjob:
+  preimplementation:
     if: contains(github.event.issue.labels.*.name, 'gearid-1234')
     name: Print event
     runs-on: [ubuntu-org,ubuntu-org4]
@@ -15,20 +15,28 @@ jobs:
         GITHUB_CONTEXT: ${{toJson(github)}}
         issuelabels: "${{ join(github.event.issue.labels.*.name,',') }}"
       run: |
+        echo "labels=${{ join(github.event.issue.labels.*.name,',') }}" >> $GITHUB_ENV
         echo " this is the issue action ${{ github.event.action }}" 
         echo "this is the issue lable ${{ join(github.event.issue.labels.*.name,',') }}"
           
     - uses: octokit/request-action@v2.x
       id: get_adm_issue_status
       with:
-        route: GET "/repos/imurpalvicky-org/compliance-team/issues/?labels={issuelabels}"
-        issuelabels: ${{env.issuelabels}}
+        route: GET /repos/{owner}/{repo}/issues
+        repo: 'compliance-team'
+        owner: 'imurpalvicky-org'
+        labels: ${{ env.labels }}
       env:
         GITHUB_TOKEN: ${{ SECRETS.GIT_PER_TOKEN }}
         
-    - name: "Check if the ADM team approved the release"
-      if: "${{toJson(steps.get_adm_issue.outputs.data[0].state) == 'open'}}"
+    - name: "verify ADM Approval"
+      if: "${{fromJson(steps.get_adm_issue_status.outputs.data)[0].state}} == 'closed'}}"
       run: |
         echo "Release Approved by ADM team " 
-    - run: "echo latest release: '${{ steps.get_adm_issue.outputs.data }}'"
-    - run: "echo latest release: '${{ fromJson(steps.get_adm_issue.outputs.data[0]).state }}'"
+    - name: "verify ADM Approval"
+      if: "${{fromJson(steps.get_adm_issue_status.outputs.data)[0].state}} != 'closed'}}"
+      run: |
+        exit 1       
+    - name: "Jenkins deployment Job"
+      run: |
+        echo "Release Approved by ADM team "
