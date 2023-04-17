@@ -10,7 +10,7 @@ jobs:
     name: Pre-release-implementation
     runs-on: [ubuntu-org,ubuntu-org4]
     steps:
-    - name: Dump GitHub context
+    - name: set env Variables
       env:
         GITHUB_CONTEXT: ${{toJson(github)}}
         issuelabels: "${{ join(github.event.issue.labels.*.name,',') }}"
@@ -20,6 +20,7 @@ jobs:
         echo "this is the issue lable ${{ join(github.event.issue.labels.*.name,',') }}"
           
     - uses: octokit/request-action@v2.x
+      name: Check ADM issue status
       id: get_adm_issue_status
       with:
         route: GET /repos/{owner}/{repo}/issues
@@ -30,11 +31,11 @@ jobs:
         GITHUB_TOKEN: ${{ SECRETS.GIT_PER_TOKEN }}
         
     - name: "verify ADM Approval"
-      if: "${{fromJson(steps.get_adm_issue_status.outputs.data)[0].state}} == 'closed'}}"
+      if: ${{fromJson(steps.get_adm_issue_status.outputs.data)[0].state}} == 'closed'}}
       run: |
         echo "Release Approved by ADM team as ${{fromJson(steps.get_adm_issue_status.outputs.data)[0].state}}" 
     - name: "verify ADM Approval"
-      if: "${{fromJson(steps.get_adm_issue_status.outputs.data)[0].state}} != 'closed'}}"
+      if: ${{fromJson(steps.get_adm_issue_status.outputs.data)[0].state}} != 'closed'}}
       run: |
         echo "Release disapproved by ADM team as ${{fromJson(steps.get_adm_issue_status.outputs.data)[0].state}}" 
         exit 1
