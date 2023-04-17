@@ -1,0 +1,36 @@
+
+
+name: octkit release Workflow
+
+on:
+  workflow_dispatch:
+
+env:
+  WORKFLOW_VARIABLE: WORKFLOW
+
+jobs:
+  build:
+    runs-on: [ubuntu-org,ubuntu-org4]
+    strategy:
+      matrix:
+        node-version: [14.x]
+    steps:
+    - name: print env
+      env:
+        labels: "gearid-1234,chg"
+      run: |
+        echo " this is the issue action ${{ env.issuelabels }}" 
+          
+    - uses: octokit/request-action@v2.x
+      id: get_adm_issue_status
+      with:
+        route: GET "/repos/imurpalvicky-org/compliance-team/issues/?labels={labels}"
+        labels: ${{env.labels}}
+      env:
+        GITHUB_TOKEN: ${{ SECRETS.GIT_PER_TOKEN }}
+        
+    - name: "Check if the ADM team approved the release"
+      if: "${{toJson(steps.get_adm_issue.outputs.data[0].state) == 'open'}}"
+      run: |
+        echo "Release Approved by ADM team " 
+    - run: "echo latest release: '${{ steps.get_adm_issue.outputs.data }}'"
