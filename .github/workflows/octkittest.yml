@@ -16,9 +16,8 @@ jobs:
         node-version: [14.x]
     steps:
     - name: print env
-      env:
-        labels: "gearid-1234,CHG454"
       run: |
+        echo "labels=gearid-1234,CHG454" >> $GITHUB_ENV
         echo " this is the issue action ${{ env.labels }}" 
     - name: print env
       run: |
