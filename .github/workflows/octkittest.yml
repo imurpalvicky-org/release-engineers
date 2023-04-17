@@ -17,7 +17,7 @@ jobs:
     steps:
     - name: print env
       env:
-        labels: "gearid-1234,chg"
+        labels: "gearid-1234,CHG454"
       run: |
         echo " this is the issue action ${{ env.labels }}" 
           
@@ -27,7 +27,7 @@ jobs:
         route: GET /repos/{owner}/{repo}/issues
         repo: 'compliance-team'
         owner: 'imurpalvicky-org'
-        labels: "gearid-1234,CHG454"
+        labels: ${{env.labels}}
       env:
         GITHUB_TOKEN: ${{ SECRETS.GIT_PER_TOKEN }}
         
