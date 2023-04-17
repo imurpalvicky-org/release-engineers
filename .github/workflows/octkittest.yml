@@ -33,7 +33,7 @@ jobs:
         GITHUB_TOKEN: ${{ SECRETS.GIT_PER_TOKEN }}
         
     - name: "Check if the ADM team approved the release"
-      if: "${{toJson(steps.get_adm_issue_status.outputs.data[0].state) == 'open'}}"
+      if: "${{fromJson(steps.get_adm_issue_status.outputs.data)[0].state ) == 'open'}}"
       run: |
         echo "Release Approved by ADM team " 
     - run: "echo latest release: '${{ steps.get_adm_issue_status.outputs.data }}'"
