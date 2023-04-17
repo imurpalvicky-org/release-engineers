@@ -7,7 +7,7 @@ on:
 jobs:
   pre-implementation-job:
     if: contains(github.event.issue.labels.*.name, 'gearid-1234')
-    name: Print event
+    name: Pre-release-implementation
     runs-on: [ubuntu-org,ubuntu-org4]
     steps:
     - name: Dump GitHub context
