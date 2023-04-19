@@ -38,3 +38,7 @@ jobs:
         echo "Release Approved by ADM team " 
     - run: "echo latest release: '${{ steps.get_adm_issue_status.outputs.data }}'"
     - run: "echo latest release: '${{ fromJson(steps.get_adm_issue_status.outputs.data)[0].state }}'"
+    - run: |
+            echo "Run Jenkins job and wait for two hours "
+            SUMMARY=$"# Job Summary\n## Jenkins job and wait for two hours for completion ${{ fromJson(steps.get_adm_issue_status.outputs.data)[0].state }}  \nsuccessful"
+            echo "$SUMMARY" >> $GITHUB_STEP_SUMMARY
