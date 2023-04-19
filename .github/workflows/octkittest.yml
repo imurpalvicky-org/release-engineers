@@ -42,4 +42,4 @@ jobs:
             echo "Run Jenkins job and wait for two hours "
             
             SUMMARY=$'# Job Summary\n## Jenkins job and wait for two hours for completion  \nsuccessful \n ### Release completed successfully! 🚀'
-            echo "$SUMMARY" >> $GITHUB_STEP_SUMMARY
+            echo "$SUMMARY ${{ fromJson(steps.get_adm_issue_status.outputs.data)[0].state }} states" >> $GITHUB_STEP_SUMMARY
