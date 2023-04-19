@@ -40,11 +40,18 @@ jobs:
       run: |
         echo "Release disapproved by ADM team as ${{fromJson(steps.get_adm_issue_status.outputs.data)[0].state}}" 
         exit 1
-  RunDeploy-job:
+  RunDeploy-job1:
       needs: pre-implementation-job
       runs-on: [ubuntu-org,ubuntu-org4]
       steps:
-      - name: "Jenkins deployment Job"
+      - name: "Jenkins deployment Job1"
+        run: |
+          echo "Run Jenkins job and wait for two hours "
+  RunDeploy-job2:
+      needs: pre-implementation-job
+      runs-on: [ubuntu-org,ubuntu-org4]
+      steps:
+      - name: "Jenkins deployment Job2"
         run: |
           echo "Run Jenkins job and wait for two hours "
           SUMMARY=$'# Job Summary\n## Jenkins job and wait for two hours for completion  \nsuccessful \n'
