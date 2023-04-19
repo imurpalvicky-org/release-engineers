@@ -47,5 +47,5 @@ jobs:
       - name: "Jenkins deployment Job"
         run: |
           echo "Run Jenkins job and wait for two hours "
-          SUMMARY=$'# Job Summary\n## Jenkins job and wait for two hours for completion  \nsuccessful'
-          echo "$SUMMARY" >> $GITHUB_STEP_SUMMARY
+          SUMMARY=$'# Job Summary\n## Jenkins job and wait for two hours for completion  \nsuccessful \n'
+          echo "$SUMMARY Release completed successfully! 🚀 " >> $GITHUB_STEP_SUMMARY
