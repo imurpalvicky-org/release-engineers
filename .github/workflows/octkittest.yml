@@ -29,6 +29,7 @@ jobs:
         repo: 'compliance-team'
         owner: 'imurpalvicky-org'
         labels: ${{ env.labels }}
+        state: "all"
       env:
         GITHUB_TOKEN: ${{ SECRETS.GIT_PER_TOKEN }}
         
