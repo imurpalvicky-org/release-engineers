@@ -1,6 +1,6 @@
 
 name: implement release Workflow
-run-name: implementing ${{ join(github.event.issue.labels.*.name,',') }}
+run-name: implementing Change ${{ join(github.event.issue.labels.*.name,',') }}
 on:
   issues:
     types: [ closed, reopened]
@@ -85,5 +85,5 @@ jobs:
           - run: |
               echo "Run Jenkins job and wait for two hours "
               SUMMARY=$'# Job Summary\n## Jenkins job and wait for two hours for completion  \nsuccessful \n'
-              echo "$SUMMARY ----- validation and approve the workitem ${{ steps.validationworkitemid.outputs.html_url }}  ------- Deplpoyment completed successfully! 🚀 " >> $GITHUB_STEP_SUMMARY
+              echo "$SUMMARY ----- validate deployment and approve the workitem ${{ steps.validationworkitemid.outputs.html_url }}  ------- " >> $GITHUB_STEP_SUMMARY
         
