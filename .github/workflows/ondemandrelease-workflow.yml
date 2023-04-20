@@ -1,6 +1,6 @@
 
 name: ondemand-create-release
-
+run-name: Creating ${{ inputs.ReleaseNo }}
 on:
   workflow_dispatch:
    inputs:
@@ -16,8 +16,8 @@ jobs:
   create_release:
      runs-on: [ubuntu-org,ubuntu-org4]
      steps:
-#      - name: "checkout"
-#        uses: actions/checkout@v2
+      - name: "checkout"
+        uses: actions/checkout@v2
 #      - name: Set up Node.js ${{ matrix.node-version }}
 #        uses: actions/setup-node@v2
 #        with:
