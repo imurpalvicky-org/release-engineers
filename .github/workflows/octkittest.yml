@@ -44,3 +44,17 @@ jobs:
             
             SUMMARY=$'# Job Summary\n## Jenkins job and wait for two hours for completion  \nsuccessful \n ### Release completed successfully! 🚀'
             echo "$SUMMARY ${{ fromJson(steps.get_adm_issue_status.outputs.data)[0].state }} states" >> $GITHUB_STEP_SUMMARY
+  RunDeploy-job1:
+      needs: build
+      runs-on: [ubuntu-org,ubuntu-org4]
+      steps:
+      - name: "Jenkins deployment Job1"
+        run: |
+          exit 1
+  RunDeploy-job2:
+      needs: build
+      runs-on: [ubuntu-org,ubuntu-org4]
+      steps:
+      - name: "Jenkins deployment Job2"
+        run: |
+          echo "Run Jenkins job and wait for two hours "
