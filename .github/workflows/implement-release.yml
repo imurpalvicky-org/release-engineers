@@ -41,6 +41,9 @@ jobs:
       run: |
         echo "Release disapproved by ADM team as ${{fromJson(steps.get_adm_issue_status.outputs.data)[0].state}}" 
         exit 1
+    outputs:
+        issue_labels: ${{ env.labels }}
+        
   RunDeploy-job1:
       needs: pre-implementation-job
       runs-on: [ubuntu-org,ubuntu-org4]
@@ -56,4 +59,14 @@ jobs:
         run: |
           echo "Run Jenkins job and wait for two hours "
           SUMMARY=$'# Job Summary\n## Jenkins job and wait for two hours for completion  \nsuccessful \n'
-          echo "$SUMMARY Release completed successfully! 🚀 " >> $GITHUB_STEP_SUMMARY
+          echo "$SUMMARY ${{ needs.pre-implementation-job.outputs.issue_labels }} Deplpoyment completed successfully! 🚀 " >> $GITHUB_STEP_SUMMARY
+      - name: "create an workitem for App Release engineer team to validate the deployment"
+        uses: dacbd/create-issue-action@main
+        with:
+          token: ${{ SECRETS.GIT_PER_TOKEN }}
+          title: New Release-<GEAR_ID>- ${{ github.event.inputs.ReleaseNo }}
+          body:  |
+            # Body
+            Please close the issue once you validate the deployment
+          assignees: imurpalvicky
+          labels: ${{ needs.pre-implementation-job.outputs.issue_labels }}
