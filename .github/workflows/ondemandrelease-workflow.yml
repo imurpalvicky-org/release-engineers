@@ -13,11 +13,8 @@ env:
   WORKFLOW_VARIABLE: WORKFLOW
 
 jobs:
-  build:
+  create_release:
     runs-on: [ubuntu-org,ubuntu-org4]
-    strategy:
-      matrix:
-        node-version: [14.x]
     steps:
       - name: "checkout"
         uses: actions/checkout@v2
@@ -54,7 +51,7 @@ jobs:
           token: ${{ SECRETS.GIT_PER_TOKEN }}
           owner: imurpalvicky-org
           repo: compliance-team
-          title: New Replease -<GEAR_ID>-${{ github.event.inputs.ReleaseNo }}
+          title: New Release -<GEAR_ID>-${{ github.event.inputs.ReleaseNo }}
           body: |
             # Body
             New Release created verify the artifacts and close the issue with the comment "APPROVED"
@@ -64,7 +61,7 @@ jobs:
         uses: dacbd/create-issue-action@main
         with:
           token: ${{ SECRETS.GIT_PER_TOKEN }}
-          title: New Replease-<GEAR_ID>- ${{ github.event.inputs.ReleaseNo }}
+          title: New Release-<GEAR_ID>- ${{ github.event.inputs.ReleaseNo }}
           body:  |
             # Body
             Please close the issue  once the ADM approval is given, with the comment "GET STARTED" 
