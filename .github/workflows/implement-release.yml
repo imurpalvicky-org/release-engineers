@@ -49,7 +49,7 @@ jobs:
         run: |
           echo "Run Jenkins job and wait for two hours "
   RunDeploy-job2:
-      needs: pre-implementation-job
+      needs: RunDeploy-job1
       runs-on: [ubuntu-org,ubuntu-org4]
       steps:
       - name: "Jenkins deployment Job2"
