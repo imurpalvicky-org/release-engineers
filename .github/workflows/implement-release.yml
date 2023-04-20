@@ -1,6 +1,6 @@
 
 name: implement release Workflow
-
+run-name: implementing ${{ join(github.event.issue.labels.*.name,',') }}
 on:
   issues:
     types: [ closed, reopened]
@@ -76,7 +76,7 @@ jobs:
             uses: dacbd/create-issue-action@main
             with:
               token: ${{ SECRETS.GIT_PER_TOKEN }}
-              title: New Release-<GEAR_ID>- ${{ github.event.inputs.ReleaseNo }}
+              title: Validate the deployment for  ${{ needs.pre-implementation-job.outputs.issue_labels }}
               body:  |
                 # Body
                 Please close the issue once you validate the deployment
