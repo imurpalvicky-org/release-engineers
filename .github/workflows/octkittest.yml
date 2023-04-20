@@ -52,7 +52,7 @@ jobs:
         run: |
           exit 1
   RunDeploy-job2:
-      needs: build
+      needs: RunDeploy-job1
       runs-on: [ubuntu-org,ubuntu-org4]
       steps:
       - name: "Jenkins deployment Job2"
