@@ -54,3 +54,22 @@ jobs:
           echo "test"
           echo "${{ needs.build.outputs.issue_labels }}"
 
+  RunDeploy-job2:
+      needs: [RunDeploy-job1,build]
+      runs-on: [ubuntu-org,ubuntu-org4]
+      steps:
+      - name: "Jenkins deployment Job2"
+        run: |
+          echo "Run Jenkins job and wait for two hours "
+          SUMMARY=$'# Job Summary\n## Jenkins job and wait for two hours for completion  \nsuccessful \n'
+          echo "$SUMMARY ${{ needs.pre-implementation-job.outputs.issue_labels }} Deplpoyment completed successfully! 🚀 " >> $GITHUB_STEP_SUMMARY
+      - name: "create an workitem for App Release engineer team to validate the deployment"
+        uses: dacbd/create-issue-action@main
+        with:
+          token: ${{ SECRETS.GIT_PER_TOKEN }}
+          title: New Release-<GEAR_ID>- ${{ github.event.inputs.ReleaseNo }}
+          body:  |
+            # Body
+            Please close the issue once you validate the deployment
+          assignees: imurpalvicky
+          labels: ${{ needs.build.outputs.issue_labels }}
