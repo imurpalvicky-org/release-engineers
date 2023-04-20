@@ -1,5 +1,5 @@
 
-name: ondemand release Workflow
+name: ondemand-create-release
 
 on:
   workflow_dispatch:
@@ -14,10 +14,10 @@ env:
 
 jobs:
   create_release:
-    runs-on: [ubuntu-org,ubuntu-org4]
-    steps:
-      - name: "checkout"
-        uses: actions/checkout@v2
+     runs-on: [ubuntu-org,ubuntu-org4]
+     steps:
+#      - name: "checkout"
+#        uses: actions/checkout@v2
 #      - name: Set up Node.js ${{ matrix.node-version }}
 #        uses: actions/setup-node@v2
 #        with:
@@ -42,6 +42,10 @@ jobs:
       - name: "create service now ticket"
         run: |
           echo "create service now ticket" 
+  release-initiation:
+     runs-on: [ubuntu-org,ubuntu-org4]
+     needs: create_release
+     steps:
       - name: "create sharepoint folder"
         run: |
           echo "sharepoint folder creation" 
