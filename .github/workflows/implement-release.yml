@@ -4,6 +4,7 @@ name: implement release Workflow
 on:
   issues:
     types: [opened, closed, reopened]
+  workflow_dispatch:
 jobs:
   pre-implementation-job:
     if: contains(github.event.issue.labels.*.name, 'gearid-1234')
