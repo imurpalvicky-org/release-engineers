@@ -17,7 +17,7 @@ jobs:
     steps:
     - name: print env
       run: |
-        echo "labels=gearid-1234,CHG454" >> $GITHUB_ENV
+        echo "labels=gearid-1234,CHG458" >> $GITHUB_ENV
         echo " this is the issue action ${{ env.labels }}" 
     - name: print env
       run: |
@@ -36,14 +36,15 @@ jobs:
     - name: "Check if the ADM team approved the release"
       if:  ${{fromJson(steps.get_adm_issue_status.outputs.data)[0].state == 'closed'}} 
       run: |
-        exit 1 
+        echo "approved"
     - run: "echo latest release: '${{ steps.get_adm_issue_status.outputs.data }}'"
     - run: "echo latest release: '${{ fromJson(steps.get_adm_issue_status.outputs.data)[0].state }}'"
     - run: |
             echo "Run Jenkins job and wait for two hours "
-            
             SUMMARY=$'# Job Summary\n## Jenkins job and wait for two hours for completion  \nsuccessful \n ### Release completed successfully! 🚀'
             echo "$SUMMARY ${{ fromJson(steps.get_adm_issue_status.outputs.data)[0].state }} states" >> $GITHUB_STEP_SUMMARY
+    outputs:
+        issue_labels: ${{ env.labels }}
   RunDeploy-job1:
       needs: build
       runs-on: [ubuntu-org,ubuntu-org4]
@@ -58,3 +59,13 @@ jobs:
       - name: "Jenkins deployment Job2"
         run: |
           echo "Run Jenkins job and wait for two hours "
+      - name: "create an workitem for App Release engineer team to validate the deployment"
+        uses: dacbd/create-issue-action@main
+        with:
+          token: ${{ SECRETS.GIT_PER_TOKEN }}
+          title: New Release-<GEAR_ID>- ${{ github.event.inputs.ReleaseNo }}
+          body:  |
+            # Body
+            Please close the issue once you validate the deployment
+          assignees: imurpalvicky
+          labels: ${{ needs.build.outputs.issue_labels }}
