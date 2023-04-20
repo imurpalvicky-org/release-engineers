@@ -1,6 +1,6 @@
 
 name: ondemand-create-release
-run-name: Creating ${{ inputs.ReleaseNo }}
+run-name: Creating Release ${{ inputs.ReleaseNo }}
 on:
   workflow_dispatch:
    inputs:
@@ -76,5 +76,5 @@ jobs:
       - name: "summary creation"
         run: |
             echo "summary created"
-            SUMMARY=$'# Job Summary\n## Two GitHub workitem are created  \nsuccessful \n '
+            SUMMARY=$'# Job Summary\n## Two GitHub workitem are created  \n successful \n '
             echo "$SUMMARY Compliance team need to Approve this ${{ steps.compliancewkitem.outputs.html_url }} ---------- Release engineer to start the release ${{ steps.releaseEnggwkitem.outputs.html_url }}  " >> $GITHUB_STEP_SUMMARY
