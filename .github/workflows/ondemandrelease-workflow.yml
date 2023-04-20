@@ -50,6 +50,7 @@ jobs:
         run: |
           echo "sharepoint folder creation" 
       - name: "create an workitem for Compliance team"
+        id: compliancewkitem
         uses: dacbd/create-issue-action@main
         with:
           token: ${{ SECRETS.GIT_PER_TOKEN }}
@@ -62,6 +63,7 @@ jobs:
           assignees: imurpalvicky
           labels: CHG457 ,gearid-1234
       - name: "create an workitem for App Release engineer team to kick start the release"
+        id: releaseEnggwkitem
         uses: dacbd/create-issue-action@main
         with:
           token: ${{ SECRETS.GIT_PER_TOKEN }}
@@ -71,3 +73,8 @@ jobs:
             Please close the issue  once the ADM approval is given, with the comment "GET STARTED" 
           assignees: imurpalvicky
           labels: CHG457 ,gearid-1234
+      - name: "summary creation"
+        run: |
+            echo "summary created"
+            SUMMARY=$'# Job Summary\n## Two GitHub workitem are created  \nsuccessful \n '
+            echo "$SUMMARY ${{ steps.compliancewkitem.outputs.html_url }} \n ${{ steps.releaseEnggwkitem.outputs.html_url }}  " >> $GITHUB_STEP_SUMMARY
