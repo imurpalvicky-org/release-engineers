@@ -56,7 +56,7 @@ jobs:
           token: ${{ SECRETS.GIT_PER_TOKEN }}
           owner: imurpalvicky-org
           repo: compliance-team
-          title: New Release -<GEAR_ID>-${{ github.event.inputs.ReleaseNo }}
+          title: New Release -<GEAR_ID>-${{ github.event.inputs.ReleaseNo }} ADM Approval
           body: |
             # Body
             New Release created verify the artifacts and close the issue with the comment "APPROVED"
@@ -67,7 +67,7 @@ jobs:
         uses: dacbd/create-issue-action@main
         with:
           token: ${{ SECRETS.GIT_PER_TOKEN }}
-          title: New Release-<GEAR_ID>- ${{ github.event.inputs.ReleaseNo }}
+          title: New Release-<GEAR_ID>- ${{ github.event.inputs.ReleaseNo }} waiting for change window
           body:  |
             # Body
             Please close the issue  once the ADM approval is given, with the comment "GET STARTED" 
