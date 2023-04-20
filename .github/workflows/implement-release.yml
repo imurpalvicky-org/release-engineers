@@ -3,11 +3,12 @@ name: implement release Workflow
 
 on:
   issues:
-    types: [opened, closed, reopened]
+    types: [ closed, reopened]
   workflow_dispatch:
 jobs:
   pre-implementation-job:
-    if: contains(github.event.issue.labels.*.name, 'gearid-1234')
+    if: |
+      contains(github.event.issue.labels.*.name, 'gearid-1234') && contains(github.event.issue.title, 'waiting for change window')
     name: Pre-release-implementation
     runs-on: [ubuntu-org,ubuntu-org4]
     steps:
@@ -45,6 +46,8 @@ jobs:
         issue_labels: ${{ env.labels }}
         
   RunDeploy-job1:
+      if: |
+        contains(github.event.issue.labels.*.name, 'gearid-1234') && contains(github.event.issue.title, 'waiting for change window')
       needs: pre-implementation-job
       runs-on: [ubuntu-org,ubuntu-org4]
       steps:
@@ -52,6 +55,8 @@ jobs:
         run: |
           echo "Run Jenkins job and wait for two hours "
   RunDeploy-job2:
+      if: |
+        contains(github.event.issue.labels.*.name, 'gearid-1234') && contains(github.event.issue.title, 'waiting for change window')
       needs: pre-implementation-job
       runs-on: [ubuntu-org,ubuntu-org4]
       steps:
@@ -61,6 +66,8 @@ jobs:
           SUMMARY=$'# Job Summary\n## Jenkins job and wait for two hours for completion  \nsuccessful \n'
           echo "$SUMMARY Deplpoyment completed successfully! 🚀 " >> $GITHUB_STEP_SUMMARY
   validationworkitem-creation:
+        if: |
+          contains(github.event.issue.labels.*.name, 'gearid-1234') && contains(github.event.issue.title, 'waiting for change window')
         needs: [RunDeploy-job2,pre-implementation-job]
         runs-on: [ubuntu-org,ubuntu-org4]
         steps:
