@@ -36,7 +36,7 @@ jobs:
     - name: "Check if the ADM team approved the release"
       if: "${{fromJson(steps.get_adm_issue_status.outputs.data)[0].state}} == 'open'}}"
       run: |
-        echo "Release Approved by ADM team " 
+        exit 1 
     - run: "echo latest release: '${{ steps.get_adm_issue_status.outputs.data }}'"
     - run: "echo latest release: '${{ fromJson(steps.get_adm_issue_status.outputs.data)[0].state }}'"
     - run: |
@@ -50,7 +50,7 @@ jobs:
       steps:
       - name: "Jenkins deployment Job1"
         run: |
-          exit 1
+          echo "test"
   RunDeploy-job2:
       needs: RunDeploy-job1
       runs-on: [ubuntu-org,ubuntu-org4]
