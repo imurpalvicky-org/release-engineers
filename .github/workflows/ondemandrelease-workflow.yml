@@ -13,7 +13,7 @@ env:
   WORKFLOW_VARIABLE: WORKFLOW
 
 jobs:
-  create_release:
+  pre_check:
      runs-on: [ubuntu-org,ubuntu-org4]
      steps:
       - name: "checkout"
@@ -44,7 +44,7 @@ jobs:
           echo "create service now ticket" 
   release-initiation:
      runs-on: [ubuntu-org,ubuntu-org4]
-     needs: create_release
+     needs: pre_check
      steps:
       - name: "create sharepoint folder"
         run: |
