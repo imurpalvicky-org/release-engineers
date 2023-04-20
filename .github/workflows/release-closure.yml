@@ -1,0 +1,28 @@
+
+name: close-release
+run-name: close release ${{ join(github.event.issue.labels.*.name,',') }}
+on:
+  issues:
+    types: [ closed, reopened]
+  workflow_dispatch:
+jobs:
+  close-release:
+    if: |
+      contains(github.event.issue.labels.*.name, 'gearid-1234') && contains(github.event.issue.title, 'validate')
+    name: close-release
+    runs-on: [ubuntu-org,ubuntu-org4]
+    steps:
+    - name: close service now ticket
+      env:
+        GITHUB_CONTEXT: ${{toJson(github)}}
+        issuelabels: "${{ join(github.event.issue.labels.*.name,',') }}"
+      run: |
+        echo "labels=${{ join(github.event.issue.labels.*.name,',') }}" >> $GITHUB_ENV
+        echo "Issue closed" 
+    - name: send notification on issue closure
+      run: |
+        echo "send notification on succcessfull completion"
+    - run: |
+              SUMMARY=$'# Release closed successfully  \nsuccessful \n'
+              echo "$SUMMARY ----- ${{ env.labels}}  ------- " >> $GITHUB_STEP_SUMMARY
+        
