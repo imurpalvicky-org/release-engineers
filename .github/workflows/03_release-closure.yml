@@ -1,5 +1,5 @@
 
-name: close-release
+name: 03-close-release
 run-name: close release ${{ join(github.event.issue.labels.*.name,',') }}
 on:
   issues:
