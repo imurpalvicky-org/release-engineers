@@ -1,5 +1,5 @@
 
-name: implement release Workflow
+name: 02-implement release Workflow
 run-name: implementing Change ${{ join(github.event.issue.labels.*.name,',') }}
 on:
   issues:
