@@ -1,6 +1,6 @@
 
 
-name: octkit test Workflow
+name: test octkit Workflow
 
 on:
   workflow_dispatch:
