@@ -1,5 +1,5 @@
 
-name: ondemand-create-release
+name: 01-ondemand-create-release
 run-name: Creating Release ${{ inputs.ReleaseNo }}
 on:
   workflow_dispatch:
