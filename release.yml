@@ -1,0 +1,3 @@
+release_name: "Enter Release Name "
+release_notification_group: " Enter notification DL for the release"
+application_ci_name: "app_ci_name"
